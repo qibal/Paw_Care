@@ -1,6 +1,6 @@
 ﻿namespace PawCare
 {
-    partial class Form1
+    partial class Parent
     {
         /// <summary>
         /// Required designer variable.
@@ -59,14 +59,16 @@
             this.hewanToolStripMenuItem.Name = "hewanToolStripMenuItem";
             this.hewanToolStripMenuItem.Size = new System.Drawing.Size(69, 24);
             this.hewanToolStripMenuItem.Text = "Hewan";
+            this.hewanToolStripMenuItem.Click += new System.EventHandler(this.hewanToolStripMenuItem_Click);
             // 
             // peralatanToolStripMenuItem
             // 
             this.peralatanToolStripMenuItem.Name = "peralatanToolStripMenuItem";
             this.peralatanToolStripMenuItem.Size = new System.Drawing.Size(84, 24);
             this.peralatanToolStripMenuItem.Text = "Peralatan";
+            this.peralatanToolStripMenuItem.Click += new System.EventHandler(this.peralatanToolStripMenuItem_Click);
             // 
-            // Form1
+            // Parent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -74,7 +76,7 @@
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "Parent";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
