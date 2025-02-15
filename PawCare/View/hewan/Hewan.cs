@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,10 +22,22 @@ namespace PawCare.View
 
         private void LoadImage()
         {
-            string PATH = "/Image/cat_1.jpeg"; // Ganti dengan path gambar yang sesuai
+            // 1. Dapatkan direktori root proyek
+            string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
+
+            // 2. Bangun path gambar yang benar
+            string imagePath = Path.Combine(projectDirectory, "Image", "cat_1.jpeg");
+
             try
             {
-                pictureBox1.Image = Image.FromFile(PATH);
+                if (File.Exists(imagePath))
+                {
+                    animal_image.Image = Image.FromFile(imagePath);
+                }
+                else
+                {
+                    MessageBox.Show($"File not found: {imagePath}");
+                }
             }
             catch (Exception ex)
             {
