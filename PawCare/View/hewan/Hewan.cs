@@ -54,7 +54,6 @@ namespace PawCare.View
         private void button2_Click(object sender, EventArgs e)
         {
             FormHewan childForm = new FormHewan();
-            childForm.MdiParent = this;
             childForm.Show();
         }
 
