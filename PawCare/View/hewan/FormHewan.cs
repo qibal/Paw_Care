@@ -8,23 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PawCare.View
+namespace PawCare.View.hewan
 {
-    public partial class Hewan : Form
+    public partial class FormHewan : Form
     {
-        public Hewan()
+        public FormHewan()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

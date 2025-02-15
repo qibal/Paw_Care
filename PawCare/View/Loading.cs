@@ -28,5 +28,10 @@ namespace PawCare.View
                 frm.Show();
             }
         }
+
+        private void Loading_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

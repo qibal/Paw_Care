@@ -46,10 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="View\Hewan.cs">
+    <Compile Include="View\hewan\FormHewan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Hewan.Designer.cs">
+    <Compile Include="View\hewan\FormHewan.Designer.cs">
+      <DependentUpon>FormHewan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\hewan\Hewan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\hewan\Hewan.Designer.cs">
       <DependentUpon>Hewan.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Home.cs">
@@ -78,13 +84,19 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\Peralatan.cs">
+    <Compile Include="View\Peralatan\FormPeralatan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Peralatan.Designer.cs">
+    <Compile Include="View\Peralatan\FormPeralatan.Designer.cs">
+      <DependentUpon>FormPeralatan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Peralatan\Peralatan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Peralatan\Peralatan.Designer.cs">
       <DependentUpon>Peralatan.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="View\Hewan.resx">
+    <EmbeddedResource Include="View\hewan\Hewan.resx">
       <DependentUpon>Hewan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Home.resx">
@@ -121,10 +133,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Controller\" />
-    <Folder Include="Image\" />
-    <Folder Include="Model\" />
+    <Content Include="Image\cat_1.jpeg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
