@@ -34,10 +34,10 @@ namespace PawCare.View
                 {
                     animal_image.Image = Image.FromFile(imagePath);
                 }
-                else
-                {
-                    MessageBox.Show($"File not found: {imagePath}");
-                }
+                //else
+                //{
+                //    MessageBox.Show($"File not found: {imagePath}");
+                //}
             }
             catch (Exception ex)
             {
