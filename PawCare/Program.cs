@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PawCare.View;
 
 namespace PawCare
 {
@@ -16,7 +17,7 @@ namespace PawCare
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Parent());
+            Application.Run(new Loading());
         }
     }
 }

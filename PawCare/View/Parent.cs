@@ -38,5 +38,13 @@ namespace PawCare
             childForm.MdiParent = this;
             childForm.Show();
         }
+
+        private void homeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Home childForm = new Home();
+
+            childForm.MdiParent = this;
+            childForm.Show();
+        }
     }
 }
