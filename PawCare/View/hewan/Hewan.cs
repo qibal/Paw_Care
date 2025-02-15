@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PawCare.View.hewan;
 
 namespace PawCare.View
 {
@@ -39,7 +40,9 @@ namespace PawCare.View
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            FormHewan childForm = new FormHewan();
+            childForm.MdiParent = this;
+            childForm.Show();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
