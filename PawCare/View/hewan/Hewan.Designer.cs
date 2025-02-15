@@ -40,7 +40,7 @@
             this.button1.Cursor = System.Windows.Forms.Cursors.Default;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.Snow;
-            this.button1.Location = new System.Drawing.Point(480, 102);
+            this.button1.Location = new System.Drawing.Point(583, 34);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(72, 26);
@@ -54,7 +54,7 @@
             this.button2.BackColor = System.Drawing.Color.DarkTurquoise;
             this.button2.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.Snow;
-            this.button2.Location = new System.Drawing.Point(631, 102);
+            this.button2.Location = new System.Drawing.Point(682, 34);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(84, 26);
@@ -65,9 +65,9 @@
             // 
             // animal_image
             // 
-            this.animal_image.Location = new System.Drawing.Point(59, 174);
+            this.animal_image.Location = new System.Drawing.Point(12, 77);
             this.animal_image.Name = "animal_image";
-            this.animal_image.Size = new System.Drawing.Size(126, 222);
+            this.animal_image.Size = new System.Drawing.Size(183, 259);
             this.animal_image.TabIndex = 2;
             this.animal_image.TabStop = false;
             // 

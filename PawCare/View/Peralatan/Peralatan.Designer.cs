@@ -28,19 +28,66 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.animal_image = new System.Windows.Forms.PictureBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.animal_image)).BeginInit();
             this.SuspendLayout();
+            // 
+            // animal_image
+            // 
+            this.animal_image.Location = new System.Drawing.Point(72, 150);
+            this.animal_image.Name = "animal_image";
+            this.animal_image.Size = new System.Drawing.Size(126, 222);
+            this.animal_image.TabIndex = 5;
+            this.animal_image.TabStop = false;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.Color.Snow;
+            this.button2.Location = new System.Drawing.Point(644, 78);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(84, 26);
+            this.button2.TabIndex = 4;
+            this.button2.Text = "Tambah +";
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.Snow;
+            this.button1.Location = new System.Drawing.Point(493, 78);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(72, 26);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Export +";
+            this.button1.UseVisualStyleBackColor = false;
             // 
             // Peralatan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.animal_image);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Name = "Peralatan";
             this.Text = "Peralatan";
+            ((System.ComponentModel.ISupportInitialize)(this.animal_image)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.PictureBox animal_image;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }

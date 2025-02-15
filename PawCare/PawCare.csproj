@@ -119,6 +119,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\C_Animal.cs" />
+    <Compile Include="Controller\C_CategoryAnimal.cs" />
+    <Compile Include="Controller\C_CategoryPeralatan.cs" />
+    <Compile Include="Controller\C_Peralatan.cs" />
+    <Compile Include="Controller\Koneksi.cs" />
+    <Compile Include="Model\M_Animal.cs" />
+    <Compile Include="Model\M_CategoryAnimal.cs" />
+    <Compile Include="Model\M_CategoryPeralatan.cs" />
+    <Compile Include="Model\M_Peralatan.cs" />
     <Compile Include="View\hewan\FormHewan.cs">
       <SubType>Form</SubType>
     </Compile>

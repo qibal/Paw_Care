@@ -16,6 +16,7 @@ namespace PawCare.View
         public Login()
         {
             InitializeComponent();
+            this.Size = new Size(700, 400);
         }
 
         private void label1_Click(object sender, EventArgs e)

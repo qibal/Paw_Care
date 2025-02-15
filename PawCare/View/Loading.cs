@@ -15,6 +15,7 @@ namespace PawCare.View
         public Loading()
         {
             InitializeComponent();
+            this.Size = new Size(700, 400);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
