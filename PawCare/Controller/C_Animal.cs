@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using PawCare.Model;
+using System.Data;
 
 namespace PawCare.Controller
 {
     internal class C_Animal
     {
         private Koneksi conn = new Koneksi();
-
+    
 
         public void InsertAnimal(M_Animal animal)
         {
@@ -44,6 +45,44 @@ namespace PawCare.Controller
                 conn.CloseConnection();
             }
         }
+        public List<M_Animal> GetAnimals()
+        {
+            List<M_Animal> animals = new List<M_Animal>();
+
+            try
+            {
+                conn.OpenConnection();
+                string query = "SELECT animal_id, animal_name, gender, age, image_path, category_id FROM animal";
+                MySqlCommand cmd = new MySqlCommand(query, conn.kon);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    M_Animal animal = new M_Animal
+                    {
+                        Animal_id = reader["animal_id"].ToString(),
+                        Animal_name = reader["animal_name"].ToString(),
+                        Gender = reader["gender"].ToString(),
+                        Age = Convert.ToInt32(reader["age"]),
+                        Image_path = reader["image_path"].ToString(),
+                        Category_id = reader["category_id"].ToString(),
+                    };
+                    animals.Add(animal);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error retrieving animals: {ex.Message}");
+            }
+            finally
+            {
+                conn.CloseConnection();
+            }
+
+            return animals;
+        }
     }
+
 
 }

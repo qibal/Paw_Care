@@ -18,6 +18,7 @@ namespace PawCare.View.hewan
     {
         private string imageFilePath;
         private string imageFileName;
+
         public FormHewan()
         {
             InitializeComponent();
@@ -164,6 +165,7 @@ namespace PawCare.View.hewan
             // Insert animal into database
             C_Animal controller = new C_Animal();
             controller.InsertAnimal(animal);
+           
 
             MessageBox.Show("Data saved successfully.");
             ClearForm();
