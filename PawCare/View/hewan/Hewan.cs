@@ -107,7 +107,7 @@ namespace PawCare.View
 
         private void button2_Click(object sender, EventArgs e)
         {
-            FormHewan childForm = new FormHewan();
+            FormHewan childForm = new FormHewan(this);
             childForm.Show();
         }
 

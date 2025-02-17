@@ -18,12 +18,15 @@ namespace PawCare.View.hewan
     {
         private string imageFilePath;
         private string imageFileName;
+        private Hewan parentForm;
 
-        public FormHewan()
+        public FormHewan(Hewan parent)
         {
             InitializeComponent();
             LoadCategories();
+            parentForm = parent;
         }
+
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
@@ -169,6 +172,7 @@ namespace PawCare.View.hewan
 
             MessageBox.Show("Data saved successfully.");
             ClearForm();
+            parentForm.LoadImage();
         }
 
 
