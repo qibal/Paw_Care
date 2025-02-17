@@ -52,8 +52,10 @@ namespace PawCare.Controller
             try
             {
                 conn.OpenConnection();
-                // Include 'created_at' and 'update_at' in the SELECT statement and order by 'update_at' descending
-                string query = "SELECT animal_id, animal_name, gender, age, image_path, category_id, created_at, update_at FROM animal ORDER BY update_at DESC";
+                string query = @"SELECT a.animal_id, a.animal_name, a.gender, a.age, a.image_path, a.category_id, c.category_name, a.created_at, a.update_at 
+                         FROM animal a
+                         LEFT JOIN animal_category c ON a.category_id = c.category_id
+                         ORDER BY a.update_at DESC";
                 MySqlCommand cmd = new MySqlCommand(query, conn.kon);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -67,8 +69,9 @@ namespace PawCare.Controller
                         Age = Convert.ToInt32(reader["age"]),
                         Image_path = reader["image_path"].ToString(),
                         Category_id = reader["category_id"].ToString(),
+                        Category_name = reader["category_name"] != DBNull.Value ? reader["category_name"].ToString() : "Unknown",
                         Created_at = Convert.ToDateTime(reader["created_at"]),
-                        Updated_at = Convert.ToDateTime(reader["update_at"]) // Ensure consistency with DB column
+                        Updated_at = Convert.ToDateTime(reader["update_at"])
                     };
                     animals.Add(animal);
                 }
@@ -85,6 +88,7 @@ namespace PawCare.Controller
 
             return animals;
         }
+
 
         public M_Animal GetAnimalById(string animalId)
         {

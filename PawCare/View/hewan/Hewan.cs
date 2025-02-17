@@ -42,7 +42,7 @@ namespace PawCare.View
             InitializeComponent();
             LoadImage();
         }
-       
+
 
         public void LoadImage()
         {
@@ -57,11 +57,35 @@ namespace PawCare.View
 
             foreach (M_Animal animal in animals)
             {
-                // Create a Panel to hold the PictureBox, Label, and Delete Button
+                // Create a Panel to hold all controls
                 Panel panel = new Panel();
                 panel.Width = 200;
-                panel.Height = 270; // Adjust height to accommodate all controls
+                panel.Height = 250; // Adjust height to accommodate all controls
                 panel.Margin = new Padding(10);
+
+                // Create a Panel for the header (Animal Name and Gender)
+                Panel headerPanel = new Panel();
+                headerPanel.Dock = DockStyle.Top;
+                headerPanel.Height = 30;
+
+                // Create a Label for the animal name
+                Label nameLabel = new Label();
+                nameLabel.Text = animal.Animal_name;
+                nameLabel.AutoSize = false;
+                nameLabel.TextAlign = ContentAlignment.MiddleLeft;
+                nameLabel.Dock = DockStyle.Left;
+                nameLabel.Width = 100;
+
+                // Create a Label for the animal gender
+                Label genderLabel = new Label();
+                genderLabel.Text = animal.Gender;
+                genderLabel.AutoSize = false;
+                genderLabel.TextAlign = ContentAlignment.MiddleRight;
+                genderLabel.Dock = DockStyle.Fill;
+
+                // Add labels to the header panel
+                headerPanel.Controls.Add(genderLabel);
+                headerPanel.Controls.Add(nameLabel);
 
                 // Create a PictureBox for the animal image
                 PictureBox pictureBox = new PictureBox();
@@ -70,7 +94,7 @@ namespace PawCare.View
                 pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                 pictureBox.Tag = animal.Animal_id; // Set the Tag property to the animal_id
                 pictureBox.Click += PictureBox_Click; // Add the click event handler
-                pictureBox.Dock = DockStyle.Fill; // Fill the remaining space
+                pictureBox.Dock = DockStyle.Fill;
 
                 // Load the image
                 string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
@@ -86,36 +110,31 @@ namespace PawCare.View
                     pictureBox.Image = Properties.Resources.placeholder_image;
                 }
 
-                // Create a Label for the animal name
-                Label nameLabel = new Label();
-                nameLabel.Text = animal.Animal_name;
-                nameLabel.AutoSize = false;
-                nameLabel.TextAlign = ContentAlignment.MiddleCenter;
-                nameLabel.Dock = DockStyle.Top;
-                nameLabel.Height = 30;
-
                 // Create a Delete Button
                 Button deleteButton = new Button();
                 deleteButton.Text = "Delete";
-                deleteButton.Width = 80;
+                deleteButton.Width = 180;
                 deleteButton.Height = 30;
                 deleteButton.Tag = animal.Animal_id;
                 deleteButton.Click += DeleteButton_Click;
                 deleteButton.Dock = DockStyle.Bottom;
-                deleteButton.Margin = new Padding(0, 5, 0, 0); // Optional: Add some spacing
 
-                // Add controls to the panel in the correct order
-                panel.Controls.Add(pictureBox);
+                // Add controls to the main panel
                 panel.Controls.Add(deleteButton);
-                panel.Controls.Add(nameLabel);
+                panel.Controls.Add(pictureBox);
+                panel.Controls.Add(headerPanel);
 
                 // Add the panel to the FlowLayoutPanel
                 flowLayoutPanel1.Controls.Add(panel);
             }
-
-// Add this method in Hewan.cs
-
         }
+
+     
+
+
+
+
+
         private void DeleteButton_Click(object sender, EventArgs e)
         {
             Button button = sender as Button;
