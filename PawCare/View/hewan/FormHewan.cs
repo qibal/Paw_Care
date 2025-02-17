@@ -17,6 +17,7 @@ namespace PawCare.View.hewan
     public partial class FormHewan : Form
     {
         private string imageFilePath;
+        private string imageFileName;
         public FormHewan()
         {
             InitializeComponent();
@@ -51,46 +52,22 @@ namespace PawCare.View.hewan
 
         private void button2_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            // Open file dialog to select an image
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image Files (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                openFileDialog.Filter = "Image Files (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    pictureBox1.Image = Image.FromFile(openFileDialog.FileName);
-                }
+                imageFilePath = openFileDialog.FileName;
+                imageFileName = Path.GetFileName(imageFilePath);
+                pictureBox1.Image = Image.FromFile(imageFilePath);
             }
         }
+
         private void btn_simpan_Click(object sender, EventArgs e)
         {
-            // Validate input fields
-            if (string.IsNullOrEmpty(animal_name.Text) ||
-                string.IsNullOrEmpty(gender.Text) ||
-                string.IsNullOrEmpty(age.Text) ||
-                pictureBox1.Image == null ||
-                category_id.SelectedValue == null)
-            {
-                MessageBox.Show("Please fill in all fields.");
-                return;
-            }
-
-            // Create animal model
-            M_Animal animal = new M_Animal();
-            animal.Animal_id = Guid.NewGuid().ToString();
-            animal.Animal_name = animal_name.Text;
-            animal.Gender = gender.Text;
-            animal.Age = int.Parse(age.Text);
-            animal.Image_path = SaveImage();
-            animal.Category_id = category_id.SelectedValue.ToString();
-            animal.Created_at = DateTime.Now;
-            animal.Updated_at = DateTime.Now;
-
-            // Insert animal into database
-            C_Animal controller = new C_Animal();
-            controller.InsertAnimal(animal);
-
-            MessageBox.Show("Data saved successfully.");
-            ClearForm();
+          
         }
+
         private void image_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
@@ -98,6 +75,7 @@ namespace PawCare.View.hewan
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 imageFilePath = dialog.FileName;
+                imageFileName = Path.GetFileName(imageFilePath);
                 pictureBox1.Image = Image.FromFile(imageFilePath);
             }
         }
@@ -107,18 +85,23 @@ namespace PawCare.View.hewan
         }
         private string SaveImage()
         {
-            string fileName = Path.GetFileName(imageFilePath);
             string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
-            string imagesPath = Path.Combine(projectDirectory, "Images");
+            string imagesPath = Path.Combine(projectDirectory, "Image");
 
             if (!Directory.Exists(imagesPath))
             {
                 Directory.CreateDirectory(imagesPath);
             }
 
-            string targetPath = Path.Combine(imagesPath, fileName);
-            pictureBox1.Image.Save(targetPath);
-            return targetPath;
+            // Generate a unique filename using GUID
+            string uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFileName);
+            string targetPath = Path.Combine(imagesPath, uniqueFileName);
+
+            // Copy the selected image to the project's Image folder
+            File.Copy(imageFilePath, targetPath, true);
+
+            // Return the relative path to store in the database
+            return Path.Combine("Image", uniqueFileName);
         }
         private void animal_name_TextChanged(object sender, EventArgs e)
         {
@@ -127,7 +110,7 @@ namespace PawCare.View.hewan
         private void ClearForm()
         {
             animal_name.Text = "";
-            gender.Text = "";
+            CB_gender.SelectedIndex = -1;
             age.Text = "";
             pictureBox1.Image = null;
             category_id.SelectedIndex = -1;
@@ -142,6 +125,54 @@ namespace PawCare.View.hewan
             category_id.ValueMember = "category_id";
         }
 
-     
+        private void btn_save_animal_Click(object sender, EventArgs e)
+        {
+            // Validate input fields
+            if (string.IsNullOrEmpty(animal_name.Text) ||
+                CB_gender.SelectedItem == null ||
+                string.IsNullOrEmpty(age.Text) ||
+                pictureBox1.Image == null ||
+                category_id.SelectedValue == null)
+            {
+                MessageBox.Show("Please fill in all fields.");
+                return;
+            }
+
+            // Validate age input
+            if (!int.TryParse(age.Text, out int ageValue))
+            {
+                MessageBox.Show("Invalid age. Please enter a numeric value.");
+                return;
+            }
+
+            // Save the image and get the relative path
+            string imagePath = SaveImage();
+
+            // Create animal model
+            M_Animal animal = new M_Animal
+            {
+                Animal_id = Guid.NewGuid().ToString(),
+                Animal_name = animal_name.Text,
+                Gender = CB_gender.SelectedItem.ToString(),
+                Age = ageValue,
+                Image_path = imagePath,
+                Category_id = category_id.SelectedValue.ToString(),
+                Created_at = DateTime.Now,
+                Updated_at = DateTime.Now
+            };
+
+            // Insert animal into database
+            C_Animal controller = new C_Animal();
+            controller.InsertAnimal(animal);
+
+            MessageBox.Show("Data saved successfully.");
+            ClearForm();
+        }
+
+
+        private void CB_gender_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
