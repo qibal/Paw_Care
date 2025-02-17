@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PawCare.View
+namespace PawCare.View.Peralatan
 {
     public partial class Peralatan : Form
     {

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PawCare.View;
+using PawCare.View.Peralatan;
 
 namespace PawCare
 {

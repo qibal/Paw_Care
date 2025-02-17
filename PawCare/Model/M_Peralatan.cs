@@ -14,13 +14,14 @@ namespace PawCare.Model
 
         public M_Peralatan() { }
 
-        public M_Peralatan(string equipment_id, string equipment_name, int amount, string image_path, string category_id, DateTime created_at, DateTime updated_at)
+        public M_Peralatan(string equipment_id, string equipment_name, int amount, string image_path, string category_id, DateTime created_at, DateTime updated_at, string Category_name)
         {
             this.equipment_id = equipment_id;
             this.equipment_name = equipment_name;
             this.amount = amount;
             this.image_path = image_path;
             this.category_id = category_id;
+            this.Category_name = Category_name;
             this.created_at = created_at;
             this.updated_at = updated_at;
         }
@@ -32,6 +33,7 @@ namespace PawCare.Model
         public string Category_id { get => category_id; set => category_id = value; }
         public DateTime Created_at { get => created_at; set => created_at = value; }
         public DateTime Updated_at { get => updated_at; set => updated_at = value; }
+        public string Category_name { get; set; }
     }
 }
 

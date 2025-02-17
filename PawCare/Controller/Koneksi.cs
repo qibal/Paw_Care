@@ -6,16 +6,19 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
+
 namespace PawCare.Controller
 {
     internal class Koneksi
     {
-        string conectionstring = "Server=localhost;Database=paw_care;Uid=root;Pwd=;";
-        MySqlConnection kon;
+       
+   
+        private string connectionString = "Server=localhost;Database=paw_care;Uid=root;Pwd=;";
+        public MySqlConnection kon;
 
         public void OpenConnection()
         {
-            kon = new MySqlConnection(conectionstring);
+            kon = new MySqlConnection(connectionString);
             kon.Open();
         }
 
@@ -29,7 +32,8 @@ namespace PawCare.Controller
             MySqlCommand command = new MySqlCommand(query, kon);
             command.ExecuteNonQuery();
         }
-        public MySqlDataReader reader(string query)
+
+        public MySqlDataReader Reader(string query)
         {
             MySqlCommand cmd = new MySqlCommand(query, kon);
             MySqlDataReader dr = cmd.ExecuteReader();

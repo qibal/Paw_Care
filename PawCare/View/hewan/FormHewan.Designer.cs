@@ -29,126 +29,176 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.image = new System.Windows.Forms.Button();
+            this.btn_save_animal = new System.Windows.Forms.Button();
+            this.category_id = new System.Windows.Forms.ComboBox();
+            this.age = new System.Windows.Forms.TextBox();
+            this.gender = new System.Windows.Forms.TextBox();
+            this.animal_name = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.category_name = new System.Windows.Forms.TextBox();
+            this.btn_save_category = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.comboBox1);
-            this.groupBox1.Controls.Add(this.textBox4);
-            this.groupBox1.Controls.Add(this.textBox3);
-            this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.image);
+            this.groupBox1.Controls.Add(this.btn_save_animal);
+            this.groupBox1.Controls.Add(this.category_id);
+            this.groupBox1.Controls.Add(this.age);
+            this.groupBox1.Controls.Add(this.gender);
+            this.groupBox1.Controls.Add(this.animal_name);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.groupBox1.Location = new System.Drawing.Point(501, 68);
+            this.groupBox1.Location = new System.Drawing.Point(445, 54);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(225, 312);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Size = new System.Drawing.Size(200, 250);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // button1
+            // image
             // 
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(26, 272);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(171, 29);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Simpan";
-            this.button1.UseVisualStyleBackColor = true;
+            this.image.Location = new System.Drawing.Point(23, 122);
+            this.image.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.image.Name = "image";
+            this.image.Size = new System.Drawing.Size(152, 26);
+            this.image.TabIndex = 6;
+            this.image.Text = "Pilih Gambar";
+            this.image.UseVisualStyleBackColor = true;
+            this.image.Click += new System.EventHandler(this.button2_Click);
             // 
-            // comboBox1
+            // btn_save_animal
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(26, 213);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(171, 28);
-            this.comboBox1.TabIndex = 4;
+            this.btn_save_animal.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_save_animal.Location = new System.Drawing.Point(23, 210);
+            this.btn_save_animal.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_save_animal.Name = "btn_save_animal";
+            this.btn_save_animal.Size = new System.Drawing.Size(152, 31);
+            this.btn_save_animal.TabIndex = 5;
+            this.btn_save_animal.Text = "Simpan";
+            this.btn_save_animal.UseVisualStyleBackColor = true;
             // 
-            // textBox4
+            // category_id
             // 
-            this.textBox4.Location = new System.Drawing.Point(26, 142);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(171, 26);
-            this.textBox4.TabIndex = 3;
+            this.category_id.FormattingEnabled = true;
+            this.category_id.Location = new System.Drawing.Point(23, 156);
+            this.category_id.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.category_id.Name = "category_id";
+            this.category_id.Size = new System.Drawing.Size(152, 24);
+            this.category_id.TabIndex = 4;
             // 
-            // textBox3
+            // age
             // 
-            this.textBox3.Location = new System.Drawing.Point(26, 108);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(171, 26);
-            this.textBox3.TabIndex = 2;
+            this.age.Location = new System.Drawing.Point(23, 92);
+            this.age.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.age.Name = "age";
+            this.age.Size = new System.Drawing.Size(152, 22);
+            this.age.TabIndex = 2;
             // 
-            // textBox2
+            // gender
             // 
-            this.textBox2.Location = new System.Drawing.Point(26, 74);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(171, 26);
-            this.textBox2.TabIndex = 1;
+            this.gender.Location = new System.Drawing.Point(23, 62);
+            this.gender.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.gender.Name = "gender";
+            this.gender.Size = new System.Drawing.Size(152, 22);
+            this.gender.TabIndex = 1;
             // 
-            // textBox1
+            // animal_name
             // 
-            this.textBox1.Location = new System.Drawing.Point(26, 40);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(171, 26);
-            this.textBox1.TabIndex = 0;
+            this.animal_name.Location = new System.Drawing.Point(23, 32);
+            this.animal_name.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.animal_name.Name = "animal_name";
+            this.animal_name.Size = new System.Drawing.Size(152, 22);
+            this.animal_name.TabIndex = 0;
+            this.animal_name.TextChanged += new System.EventHandler(this.animal_name_TextChanged);
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(71, 74);
+            this.pictureBox1.Location = new System.Drawing.Point(63, 59);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(373, 306);
+            this.pictureBox1.Size = new System.Drawing.Size(332, 245);
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
-            // button2
+            // label1
             // 
-            this.button2.Location = new System.Drawing.Point(26, 174);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(171, 33);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Pilih Gambar";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(501, 36);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(81, 16);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Data Hewan";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(677, 36);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(102, 16);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Kategori Hewan";
+            // 
+            // category_name
+            // 
+            this.category_name.Location = new System.Drawing.Point(679, 86);
+            this.category_name.Name = "category_name";
+            this.category_name.Size = new System.Drawing.Size(100, 22);
+            this.category_name.TabIndex = 9;
+            // 
+            // btn_save_category
+            // 
+            this.btn_save_category.Location = new System.Drawing.Point(679, 113);
+            this.btn_save_category.Name = "btn_save_category";
+            this.btn_save_category.Size = new System.Drawing.Size(100, 23);
+            this.btn_save_category.TabIndex = 10;
+            this.btn_save_category.Text = "Simpan";
+            this.btn_save_category.UseVisualStyleBackColor = true;
+            this.btn_save_category.Click += new System.EventHandler(this.btn_save_category_Click);
             // 
             // FormHewan
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(821, 360);
+            this.Controls.Add(this.btn_save_category);
+            this.Controls.Add(this.category_name);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox1);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FormHewan";
             this.Text = "FormHewan";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button btn_save_animal;
+        private System.Windows.Forms.ComboBox category_id;
+        private System.Windows.Forms.TextBox age;
+        private System.Windows.Forms.TextBox gender;
+        private System.Windows.Forms.TextBox animal_name;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button image;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox category_name;
+        private System.Windows.Forms.Button btn_save_category;
     }
 }
