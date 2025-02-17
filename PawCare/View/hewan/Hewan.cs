@@ -12,40 +12,40 @@ using PawCare.Controller;
 using PawCare.Model;
 using PawCare.View.hewan;
 
+using MySql.Data.MySqlClient;
+
+
 namespace PawCare.View
 {
     public partial class Hewan : Form
     {
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btn_save_animal;
+        private System.Windows.Forms.ComboBox category_id;
+        private System.Windows.Forms.TextBox age;
+        private System.Windows.Forms.TextBox animal_name;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button image;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox category_name;
+        private System.Windows.Forms.Button btn_save_category;
+        private System.Windows.Forms.ComboBox CB_gender;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private Hewan parentForm;
         public Hewan()
         {
             InitializeComponent();
             LoadImage();
         }
+       
 
         public void LoadImage()
         {
-            //// 1. Dapatkan direktori root proyek
-            //string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
-
-            //// 2. Bangun path gambar yang benar
-            //string imagePath = Path.Combine(projectDirectory, "Image", "cat_1.jpeg");
-
-            //try
-            //{
-            //    if (File.Exists(imagePath))
-            //    {
-            //        animal_image.Image = Image.FromFile(imagePath);
-            //    }
-            //    //else
-            //    //{
-            //    //    MessageBox.Show($"File not found: {imagePath}");
-            //    //}
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show($"Error loading image: {ex.Message}");
-            //}
-
             // Clear existing controls
             flowLayoutPanel1.Controls.Clear();
 
@@ -68,6 +68,9 @@ namespace PawCare.View
                 pictureBox.Width = 180;
                 pictureBox.Height = 180;
                 pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox.Tag = animal.Animal_id; // Set the Tag property to the animal_id
+                pictureBox.Click += PictureBox_Click; // Add the click event handler
+
                 // Load the image
                 string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
                 string imagePath = Path.Combine(projectDirectory, animal.Image_path);
@@ -81,7 +84,6 @@ namespace PawCare.View
                     // Use the placeholder image from resources
                     pictureBox.Image = Properties.Resources.placeholder_image;
                 }
-
 
                 // Create a Label for the animal name
                 Label nameLabel = new Label();
@@ -105,11 +107,13 @@ namespace PawCare.View
 
         }
 
+
         private void button2_Click(object sender, EventArgs e)
         {
-            FormHewan childForm = new FormHewan(this);
+            FormHewan childForm = new FormHewan(this, null); // Pass null or a valid animalId
             childForm.Show();
         }
+
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
@@ -120,5 +124,46 @@ namespace PawCare.View
         {
 
         }
+        private void PictureBox_Click(object sender, EventArgs e)
+        {
+            PictureBox pictureBox = sender as PictureBox;
+            if (pictureBox != null && pictureBox.Tag != null)
+            {
+                string animalId = pictureBox.Tag.ToString();
+                FormHewan childForm = new FormHewan(this, animalId);
+                childForm.Show();
+            }
+        }
+
+
+       
+
+        private void LoadAnimalData(string animalId)
+        {
+            C_Animal animalController = new C_Animal();
+            M_Animal animal = animalController.GetAnimalById(animalId);
+
+            if (animal != null)
+            {
+                animal_name.Text = animal.Animal_name;
+                CB_gender.SelectedItem = animal.Gender;
+                age.Text = animal.Age.ToString();
+                category_id.SelectedValue = animal.Category_id;
+
+                // Load the image
+                string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
+                string imagePath = Path.Combine(projectDirectory, animal.Image_path);
+
+                if (File.Exists(imagePath))
+                {
+                    pictureBox1.Image = Image.FromFile(imagePath);
+                }
+                else
+                {
+                    pictureBox1.Image = Properties.Resources.placeholder_image;
+                }
+            }
+        }
+        
     }
 }

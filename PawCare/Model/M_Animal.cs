@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PawCare.Model
 {
-    internal class M_Animal
+    public class M_Animal
     {
         string animal_id, animal_name, gender, image_path, category_id;
         int age;

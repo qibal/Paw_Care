@@ -12,6 +12,7 @@ using PawCare.Controller;
 using PawCare.Model;
 using MySql.Data.MySqlClient;
 
+
 namespace PawCare.View.hewan
 {
     public partial class FormHewan : Form
@@ -20,12 +21,66 @@ namespace PawCare.View.hewan
         private string imageFileName;
         private Hewan parentForm;
 
-        public FormHewan(Hewan parent)
+        public FormHewan(Hewan parent, string animalId)
         {
             InitializeComponent();
             LoadCategories();
             parentForm = parent;
+
+            // Add gender options
+            CB_gender.Items.Clear();
+            CB_gender.Items.Add("Jantan");
+            CB_gender.Items.Add("Betina");
+
+            LoadAnimalData(animalId);
         }
+        private void LoadAnimalData(string animalId)
+        {
+            C_Animal animalController = new C_Animal();
+            M_Animal animal = animalController.GetAnimalById(animalId);
+
+            if (animal != null)
+            {
+                animal_name.Text = animal.Animal_name;
+                CB_gender.SelectedItem = MapGenderToDisplay(animal.Gender);
+                age.Text = animal.Age.ToString();
+                category_id.SelectedValue = animal.Category_id;
+
+                // Load the image
+                string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
+                string imagePath = Path.Combine(projectDirectory, animal.Image_path);
+
+                if (File.Exists(imagePath))
+                {
+                    pictureBox1.Image = Image.FromFile(imagePath);
+                }
+                else
+                {
+                    pictureBox1.Image = Properties.Resources.placeholder_image;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Maps the gender value from the database to the display value.
+        /// </summary>
+        /// <param name="gender">Gender value from the database ('male' or 'female').</param>
+        /// <returns>Display gender value ('Jantan' or 'Betina').</returns>
+        private string MapGenderToDisplay(string gender)
+        {
+            switch (gender.ToLower())
+            {
+                case "jantan":
+                    return "Jantan";
+                case "betina":
+                    return "Betina";
+                default:
+                    return string.Empty;
+            }
+        }
+
+
+
 
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -152,12 +207,15 @@ namespace PawCare.View.hewan
             // Save the image and get the relative path
             string imagePath = SaveImage();
 
+            // Map display gender to database gender
+            string dbGender = MapDisplayToGender(CB_gender.SelectedItem.ToString());
+
             // Create animal model
             M_Animal animal = new M_Animal
             {
                 Animal_id = Guid.NewGuid().ToString(),
                 Animal_name = animal_name.Text,
-                Gender = CB_gender.SelectedItem.ToString(),
+                Gender = dbGender,
                 Age = ageValue,
                 Image_path = imagePath,
                 Category_id = category_id.SelectedValue.ToString(),
@@ -168,11 +226,22 @@ namespace PawCare.View.hewan
             // Insert animal into database
             C_Animal controller = new C_Animal();
             controller.InsertAnimal(animal);
-           
 
             MessageBox.Show("Data saved successfully.");
             ClearForm();
             parentForm.LoadImage();
+        }
+        private string MapDisplayToGender(string displayGender)
+        {
+            switch (displayGender.ToLower())
+            {
+                case "jantan":
+                    return "Jantan";
+                case "betina":
+                    return "Betina";
+                default:
+                    return string.Empty;
+            }
         }
 
 

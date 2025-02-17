@@ -129,6 +129,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(332, 245);
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
+
             // 
             // label1
             // 

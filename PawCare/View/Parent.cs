@@ -14,6 +14,7 @@ namespace PawCare
 {
     public partial class Parent : Form
     {
+        private Hewan parentForm;
         public Parent()
         {
             InitializeComponent();

@@ -82,6 +82,46 @@ namespace PawCare.Controller
 
             return animals;
         }
+        public M_Animal GetAnimalById(string animalId)
+        {
+            M_Animal animal = null;
+
+            try
+            {
+                conn.OpenConnection();
+                string query = "SELECT animal_id, animal_name, gender, age, image_path, category_id FROM animal WHERE animal_id = @animal_id";
+                MySqlCommand cmd = new MySqlCommand(query, conn.kon);
+                cmd.Parameters.AddWithValue("@animal_id", animalId);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    animal = new M_Animal
+                    {
+                        Animal_id = reader["animal_id"].ToString(),
+                        Animal_name = reader["animal_name"].ToString(),
+                        Gender = reader["gender"].ToString(),
+                        Age = Convert.ToInt32(reader["age"]),
+                        Image_path = reader["image_path"].ToString(),
+                        Category_id = reader["category_id"].ToString(),
+                    };
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error retrieving animal: {ex.Message}");
+            }
+            finally
+            {
+                conn.CloseConnection();
+            }
+
+            return animal;
+        }
+
+
+
     }
 
 
