@@ -57,10 +57,10 @@ namespace PawCare.View
 
             foreach (M_Animal animal in animals)
             {
-                // Create a Panel to hold the PictureBox and Label
+                // Create a Panel to hold the PictureBox, Label, and Delete Button
                 Panel panel = new Panel();
                 panel.Width = 200;
-                panel.Height = 250;
+                panel.Height = 270; // Adjust height to accommodate all controls
                 panel.Margin = new Padding(10);
 
                 // Create a PictureBox for the animal image
@@ -70,6 +70,7 @@ namespace PawCare.View
                 pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                 pictureBox.Tag = animal.Animal_id; // Set the Tag property to the animal_id
                 pictureBox.Click += PictureBox_Click; // Add the click event handler
+                pictureBox.Dock = DockStyle.Fill; // Fill the remaining space
 
                 // Load the image
                 string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
@@ -90,17 +91,47 @@ namespace PawCare.View
                 nameLabel.Text = animal.Animal_name;
                 nameLabel.AutoSize = false;
                 nameLabel.TextAlign = ContentAlignment.MiddleCenter;
-                nameLabel.Dock = DockStyle.Bottom;
+                nameLabel.Dock = DockStyle.Top;
+                nameLabel.Height = 30;
 
-                // Add controls to the panel
+                // Create a Delete Button
+                Button deleteButton = new Button();
+                deleteButton.Text = "Delete";
+                deleteButton.Width = 80;
+                deleteButton.Height = 30;
+                deleteButton.Tag = animal.Animal_id;
+                deleteButton.Click += DeleteButton_Click;
+                deleteButton.Dock = DockStyle.Bottom;
+                deleteButton.Margin = new Padding(0, 5, 0, 0); // Optional: Add some spacing
+
+                // Add controls to the panel in the correct order
                 panel.Controls.Add(pictureBox);
+                panel.Controls.Add(deleteButton);
                 panel.Controls.Add(nameLabel);
 
                 // Add the panel to the FlowLayoutPanel
                 flowLayoutPanel1.Controls.Add(panel);
             }
-        }
 
+// Add this method in Hewan.cs
+
+        }
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null && button.Tag != null)
+            {
+                string animalId = button.Tag.ToString();
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this animal?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    C_Animal animalController = new C_Animal();
+                    animalController.DeleteAnimal(animalId);
+                    LoadImage(); // Refresh the image list
+                }
+            }
+        }
+        // Add this method in Hewan.cs
 
         private void button1_Click(object sender, EventArgs e)
         {

@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using PawCare.Model;
-using System.Data;
 
 namespace PawCare.Controller
 {
     internal class C_Animal
     {
         private Koneksi conn = new Koneksi();
-    
 
         public void InsertAnimal(M_Animal animal)
         {
@@ -22,7 +21,7 @@ namespace PawCare.Controller
                 conn.OpenConnection();
 
                 string query = "INSERT INTO animal (animal_id, animal_name, gender, age, image_path, category_id, created_at, update_at) " +
-                               "VALUES (@animal_id, @animal_name, @gender, @age, @image_path, @category_id, @created_at, @updated_at)";
+                               "VALUES (@animal_id, @animal_name, @gender, @age, @image_path, @category_id, @created_at, @update_at)";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn.kon);
                 cmd.Parameters.AddWithValue("@animal_id", animal.Animal_id);
@@ -32,7 +31,7 @@ namespace PawCare.Controller
                 cmd.Parameters.AddWithValue("@image_path", animal.Image_path);
                 cmd.Parameters.AddWithValue("@category_id", animal.Category_id);
                 cmd.Parameters.AddWithValue("@created_at", animal.Created_at);
-                cmd.Parameters.AddWithValue("@updated_at", animal.Updated_at);
+                cmd.Parameters.AddWithValue("@update_at", animal.Updated_at); // Ensure consistency with DB column
 
                 cmd.ExecuteNonQuery();
             }
@@ -45,6 +44,7 @@ namespace PawCare.Controller
                 conn.CloseConnection();
             }
         }
+
         public List<M_Animal> GetAnimals()
         {
             List<M_Animal> animals = new List<M_Animal>();
@@ -52,7 +52,8 @@ namespace PawCare.Controller
             try
             {
                 conn.OpenConnection();
-                string query = "SELECT animal_id, animal_name, gender, age, image_path, category_id FROM animal";
+                // Include 'created_at' and 'update_at' in the SELECT statement and order by 'update_at' descending
+                string query = "SELECT animal_id, animal_name, gender, age, image_path, category_id, created_at, update_at FROM animal ORDER BY update_at DESC";
                 MySqlCommand cmd = new MySqlCommand(query, conn.kon);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -66,6 +67,8 @@ namespace PawCare.Controller
                         Age = Convert.ToInt32(reader["age"]),
                         Image_path = reader["image_path"].ToString(),
                         Category_id = reader["category_id"].ToString(),
+                        Created_at = Convert.ToDateTime(reader["created_at"]),
+                        Updated_at = Convert.ToDateTime(reader["update_at"]) // Ensure consistency with DB column
                     };
                     animals.Add(animal);
                 }
@@ -82,6 +85,7 @@ namespace PawCare.Controller
 
             return animals;
         }
+
         public M_Animal GetAnimalById(string animalId)
         {
             M_Animal animal = null;
@@ -89,7 +93,7 @@ namespace PawCare.Controller
             try
             {
                 conn.OpenConnection();
-                string query = "SELECT animal_id, animal_name, gender, age, image_path, category_id FROM animal WHERE animal_id = @animal_id";
+                string query = "SELECT animal_id, animal_name, gender, age, image_path, category_id, created_at, update_at FROM animal WHERE animal_id = @animal_id";
                 MySqlCommand cmd = new MySqlCommand(query, conn.kon);
                 cmd.Parameters.AddWithValue("@animal_id", animalId);
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -104,6 +108,8 @@ namespace PawCare.Controller
                         Age = Convert.ToInt32(reader["age"]),
                         Image_path = reader["image_path"].ToString(),
                         Category_id = reader["category_id"].ToString(),
+                        Created_at = Convert.ToDateTime(reader["created_at"]),
+                        Updated_at = Convert.ToDateTime(reader["update_at"]) // Ensure consistency with DB column
                     };
                 }
                 reader.Close();
@@ -120,9 +126,56 @@ namespace PawCare.Controller
             return animal;
         }
 
+        public void UpdateAnimal(M_Animal animal)
+        {
+            try
+            {
+                conn.OpenConnection();
+
+                string query = "UPDATE animal SET animal_name=@animal_name, gender=@gender, age=@age, image_path=@image_path, category_id=@category_id, update_at=@update_at WHERE animal_id=@animal_id";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn.kon);
+                cmd.Parameters.AddWithValue("@animal_id", animal.Animal_id);
+                cmd.Parameters.AddWithValue("@animal_name", animal.Animal_name);
+                cmd.Parameters.AddWithValue("@gender", animal.Gender);
+                cmd.Parameters.AddWithValue("@age", animal.Age);
+                cmd.Parameters.AddWithValue("@image_path", animal.Image_path);
+                cmd.Parameters.AddWithValue("@category_id", animal.Category_id);
+                // Removed created_at as it should not change on update
+                cmd.Parameters.AddWithValue("@update_at", animal.Updated_at); // Ensure consistency with DB column
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating animal: {ex.Message}");
+            }
+            finally
+            {
+                conn.CloseConnection();
+            }
+        }
+        // Add this method in C_Animal.cs
+        public void DeleteAnimal(string animalId)
+        {
+            try
+            {
+                conn.OpenConnection();
+                string query = "DELETE FROM animal WHERE animal_id = @animal_id";
+                MySqlCommand cmd = new MySqlCommand(query, conn.kon);
+                cmd.Parameters.AddWithValue("@animal_id", animalId);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error deleting animal: {ex.Message}");
+            }
+            finally
+            {
+                conn.CloseConnection();
+            }
+        }
 
 
     }
-
-
 }

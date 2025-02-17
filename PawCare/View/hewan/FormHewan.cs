@@ -19,7 +19,9 @@ namespace PawCare.View.hewan
     {
         private string imageFilePath;
         private string imageFileName;
+        private string existingImagePath = null; // To store existing image path
         private Hewan parentForm;
+        private string existingAnimalId = null;
 
         public FormHewan(Hewan parent, string animalId)
         {
@@ -32,7 +34,17 @@ namespace PawCare.View.hewan
             CB_gender.Items.Add("Jantan");
             CB_gender.Items.Add("Betina");
 
-            LoadAnimalData(animalId);
+            if (!string.IsNullOrEmpty(animalId))
+            {
+                existingAnimalId = animalId;
+                LoadAnimalData(animalId);
+            }
+        }
+        private DateTime GetExistingAnimalCreatedAt(string animalId)
+        {
+            C_Animal controller = new C_Animal();
+            M_Animal existingAnimal = controller.GetAnimalById(animalId);
+            return existingAnimal != null ? existingAnimal.Created_at : DateTime.Now;
         }
         private void LoadAnimalData(string animalId)
         {
@@ -45,6 +57,9 @@ namespace PawCare.View.hewan
                 CB_gender.SelectedItem = MapGenderToDisplay(animal.Gender);
                 age.Text = animal.Age.ToString();
                 category_id.SelectedValue = animal.Category_id;
+
+                // Store existing image path
+                existingImagePath = animal.Image_path;
 
                 // Load the image
                 string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
@@ -127,41 +142,12 @@ namespace PawCare.View.hewan
           
         }
 
-        private void image_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;";
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                imageFilePath = dialog.FileName;
-                imageFileName = Path.GetFileName(imageFilePath);
-                pictureBox1.Image = Image.FromFile(imageFilePath);
-            }
-        }
+       
         private void label1_Click(object sender, EventArgs e)
         {
 
         }
-        private string SaveImage()
-        {
-            string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
-            string imagesPath = Path.Combine(projectDirectory, "Image");
-
-            if (!Directory.Exists(imagesPath))
-            {
-                Directory.CreateDirectory(imagesPath);
-            }
-
-            // Generate a unique filename using GUID
-            string uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFileName);
-            string targetPath = Path.Combine(imagesPath, uniqueFileName);
-
-            // Copy the selected image to the project's Image folder
-            File.Copy(imageFilePath, targetPath, true);
-
-            // Return the relative path to store in the database
-            return Path.Combine("Image", uniqueFileName);
-        }
+       
         private void animal_name_TextChanged(object sender, EventArgs e)
         {
 
@@ -173,6 +159,10 @@ namespace PawCare.View.hewan
             age.Text = "";
             pictureBox1.Image = null;
             category_id.SelectedIndex = -1;
+            imageFilePath = null;
+            imageFileName = null;
+            existingImagePath = null;
+            existingAnimalId = null;
         }
         private void LoadCategories()
         {
@@ -184,13 +174,14 @@ namespace PawCare.View.hewan
             category_id.ValueMember = "category_id";
         }
 
+
+
         private void btn_save_animal_Click(object sender, EventArgs e)
         {
             // Validate input fields
             if (string.IsNullOrEmpty(animal_name.Text) ||
                 CB_gender.SelectedItem == null ||
                 string.IsNullOrEmpty(age.Text) ||
-                pictureBox1.Image == null ||
                 category_id.SelectedValue == null)
             {
                 MessageBox.Show("Please fill in all fields.");
@@ -204,8 +195,19 @@ namespace PawCare.View.hewan
                 return;
             }
 
-            // Save the image and get the relative path
-            string imagePath = SaveImage();
+            string imagePath;
+
+            // Check if a new image is selected
+            if (!string.IsNullOrEmpty(imageFilePath))
+            {
+                // Save the new image and get the relative path
+                imagePath = SaveImage();
+            }
+            else
+            {
+                // Use the existing image path
+                imagePath = existingImagePath;
+            }
 
             // Map display gender to database gender
             string dbGender = MapDisplayToGender(CB_gender.SelectedItem.ToString());
@@ -213,24 +215,94 @@ namespace PawCare.View.hewan
             // Create animal model
             M_Animal animal = new M_Animal
             {
-                Animal_id = Guid.NewGuid().ToString(),
+                Animal_id = string.IsNullOrEmpty(existingAnimalId) ? Guid.NewGuid().ToString() : existingAnimalId,
                 Animal_name = animal_name.Text,
                 Gender = dbGender,
                 Age = ageValue,
                 Image_path = imagePath,
                 Category_id = category_id.SelectedValue.ToString(),
-                Created_at = DateTime.Now,
+                Created_at = string.IsNullOrEmpty(existingAnimalId) ? DateTime.Now : GetExistingAnimalCreatedAt(existingAnimalId),
                 Updated_at = DateTime.Now
             };
 
-            // Insert animal into database
             C_Animal controller = new C_Animal();
-            controller.InsertAnimal(animal);
 
-            MessageBox.Show("Data saved successfully.");
-            ClearForm();
-            parentForm.LoadImage();
+            try
+            {
+                if (string.IsNullOrEmpty(existingAnimalId))
+                {
+                    // Insert operation
+                    controller.InsertAnimal(animal);
+                    MessageBox.Show("Data inserted successfully.");
+                }
+                else
+                {
+                    // Update operation
+                    controller.UpdateAnimal(animal);
+                    MessageBox.Show("Data updated successfully.");
+                }
+
+                ClearForm();
+                parentForm.LoadImage();
+                this.Close(); // Optionally close the form after saving
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving animal data: {ex.Message}");
+            }
         }
+
+        private string SaveImage()
+        {
+            if (string.IsNullOrEmpty(imageFilePath))
+            {
+                throw new ArgumentNullException(nameof(imageFilePath), "Image file path is null or empty.");
+            }
+
+            string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
+            string imagesPath = Path.Combine(projectDirectory, "Image");
+
+            if (!Directory.Exists(imagesPath))
+            {
+                Directory.CreateDirectory(imagesPath);
+            }
+
+            // Generate a unique filename using GUID
+            string uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFileName);
+            string targetPath = Path.Combine(imagesPath, uniqueFileName);
+
+            try
+            {
+                // Copy the selected image to the project's Image folder
+                File.Copy(imageFilePath, targetPath, true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving image: {ex.Message}");
+                return existingImagePath; // Return existing path if image saving fails
+            }
+
+            // Return the relative path to store in the database
+            return Path.Combine("Image", uniqueFileName);
+        }
+
+        private void image_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    imageFilePath = openFileDialog.FileName;
+                    imageFileName = Path.GetFileName(imageFilePath);
+                    pictureBox1.Image = Image.FromFile(imageFilePath);
+                }
+            }
+        }
+
+
+
+
         private string MapDisplayToGender(string displayGender)
         {
             switch (displayGender.ToLower())
