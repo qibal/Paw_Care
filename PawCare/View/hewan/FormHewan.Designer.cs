@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.CB_gender = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -45,10 +46,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.category_name = new System.Windows.Forms.TextBox();
             this.btn_save_category = new System.Windows.Forms.Button();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.table_category = new System.Windows.Forms.TableLayoutPanel();
+            this.table_category = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.table_category)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -74,6 +75,13 @@
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(279, 98);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(99, 152);
+            this.flowLayoutPanel1.TabIndex = 11;
             // 
             // CB_gender
             // 
@@ -213,46 +221,35 @@
             // 
             this.category_name.Location = new System.Drawing.Point(679, 86);
             this.category_name.Name = "category_name";
-            this.category_name.Size = new System.Drawing.Size(195, 22);
+            this.category_name.Size = new System.Drawing.Size(193, 22);
             this.category_name.TabIndex = 9;
             // 
             // btn_save_category
             // 
             this.btn_save_category.Location = new System.Drawing.Point(679, 113);
             this.btn_save_category.Name = "btn_save_category";
-            this.btn_save_category.Size = new System.Drawing.Size(195, 23);
+            this.btn_save_category.Size = new System.Drawing.Size(193, 23);
             this.btn_save_category.TabIndex = 10;
             this.btn_save_category.Text = "Simpan";
             this.btn_save_category.UseVisualStyleBackColor = true;
             this.btn_save_category.Click += new System.EventHandler(this.btn_save_category_Click);
             // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(279, 98);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(99, 152);
-            this.flowLayoutPanel1.TabIndex = 11;
-            // 
             // table_category
             // 
-            this.table_category.ColumnCount = 2;
-            this.table_category.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.table_category.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.table_category.Location = new System.Drawing.Point(680, 152);
+            this.table_category.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.table_category.Location = new System.Drawing.Point(680, 145);
             this.table_category.Name = "table_category";
-            this.table_category.RowCount = 2;
-            this.table_category.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.table_category.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.table_category.Size = new System.Drawing.Size(194, 152);
+            this.table_category.RowHeadersWidth = 51;
+            this.table_category.RowTemplate.Height = 24;
+            this.table_category.Size = new System.Drawing.Size(425, 150);
             this.table_category.TabIndex = 11;
-            this.table_category.Paint += new System.Windows.Forms.PaintEventHandler(this.table_category_Paint);
             // 
             // FormHewan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.ClientSize = new System.Drawing.Size(888, 360);
+            this.ClientSize = new System.Drawing.Size(1131, 360);
             this.Controls.Add(this.table_category);
             this.Controls.Add(this.btn_save_category);
             this.Controls.Add(this.category_name);
@@ -266,6 +263,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.table_category)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -291,6 +289,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.TableLayoutPanel table_category;
+        private System.Windows.Forms.DataGridView table_category;
     }
 }

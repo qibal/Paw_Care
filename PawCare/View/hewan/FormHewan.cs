@@ -40,6 +40,7 @@ namespace PawCare.View.hewan
                 LoadAnimalData(animalId);
             }
         }
+
         private DateTime GetExistingAnimalCreatedAt(string animalId)
         {
             C_Animal controller = new C_Animal();
@@ -173,8 +174,48 @@ namespace PawCare.View.hewan
             category_id.DisplayMember = "category_name";
             category_id.ValueMember = "category_id";
 
+            // Clear existing columns
+            table_category.Columns.Clear();
 
+            // Set the DataGridView's data source
+            table_category.DataSource = categories;
+
+            // Hide the category_id column
+            table_category.Columns["category_id"].Visible = false;
+
+            // Add a delete button column if it doesn't already exist
+            if (!table_category.Columns.Contains("Delete"))
+            {
+                DataGridViewButtonColumn deleteButtonColumn = new DataGridViewButtonColumn();
+                deleteButtonColumn.Name = "Delete";
+                deleteButtonColumn.Text = "Delete";
+                deleteButtonColumn.UseColumnTextForButtonValue = true;
+                table_category.Columns.Add(deleteButtonColumn);
+            }
+
+            // Handle the CellClick event to handle delete button clicks
+            table_category.CellClick += DataGridViewCategory_CellClick;
         }
+
+        private void DataGridViewCategory_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == table_category.Columns["Delete"].Index && e.RowIndex >= 0)
+            {
+                string categoryId = table_category.Rows[e.RowIndex].Cells["category_id"].Value.ToString();
+
+                // Confirm deletion
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this category?", "Confirm Deletion", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    C_CategoryAnimal categoryController = new C_CategoryAnimal();
+                    categoryController.DeleteCategory(categoryId);
+
+                    MessageBox.Show("Category deleted successfully.");
+                    LoadCategories(); // Refresh the categories
+                }
+            }
+        }
+
 
 
 
