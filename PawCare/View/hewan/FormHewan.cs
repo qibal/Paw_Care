@@ -172,6 +172,8 @@ namespace PawCare.View.hewan
             category_id.DataSource = categories;
             category_id.DisplayMember = "category_name";
             category_id.ValueMember = "category_id";
+
+
         }
 
 
@@ -318,6 +320,11 @@ namespace PawCare.View.hewan
 
 
         private void CB_gender_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void table_category_Paint(object sender, PaintEventArgs e)
         {
 
         }

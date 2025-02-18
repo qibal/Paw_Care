@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.CB_gender = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.image = new System.Windows.Forms.Button();
             this.btn_save_animal = new System.Windows.Forms.Button();
             this.category_id = new System.Windows.Forms.ComboBox();
@@ -39,18 +45,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.category_name = new System.Windows.Forms.TextBox();
             this.btn_save_category = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.CB_gender = new System.Windows.Forms.ComboBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.table_category = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.flowLayoutPanel1);
             this.groupBox1.Controls.Add(this.CB_gender);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
@@ -71,6 +74,63 @@
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // CB_gender
+            // 
+            this.CB_gender.FormattingEnabled = true;
+            this.CB_gender.Items.AddRange(new object[] {
+            "Jantan",
+            "Betina"});
+            this.CB_gender.Location = new System.Drawing.Point(103, 62);
+            this.CB_gender.Name = "CB_gender";
+            this.CB_gender.Size = new System.Drawing.Size(152, 24);
+            this.CB_gender.TabIndex = 12;
+            this.CB_gender.SelectedIndexChanged += new System.EventHandler(this.CB_gender_SelectedIndexChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(15, 162);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(57, 16);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "Kategori";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(15, 130);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(56, 16);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "Gambar";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 96);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(39, 16);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Umur";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 66);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(52, 16);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Gender";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(9, 32);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(89, 16);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Nama Hewan";
             // 
             // image
             // 
@@ -129,7 +189,6 @@
             this.pictureBox1.Size = new System.Drawing.Size(332, 245);
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
-
             // 
             // label1
             // 
@@ -154,82 +213,47 @@
             // 
             this.category_name.Location = new System.Drawing.Point(679, 86);
             this.category_name.Name = "category_name";
-            this.category_name.Size = new System.Drawing.Size(100, 22);
+            this.category_name.Size = new System.Drawing.Size(195, 22);
             this.category_name.TabIndex = 9;
             // 
             // btn_save_category
             // 
             this.btn_save_category.Location = new System.Drawing.Point(679, 113);
             this.btn_save_category.Name = "btn_save_category";
-            this.btn_save_category.Size = new System.Drawing.Size(100, 23);
+            this.btn_save_category.Size = new System.Drawing.Size(195, 23);
             this.btn_save_category.TabIndex = 10;
             this.btn_save_category.Text = "Simpan";
             this.btn_save_category.UseVisualStyleBackColor = true;
             this.btn_save_category.Click += new System.EventHandler(this.btn_save_category_Click);
             // 
-            // label3
+            // flowLayoutPanel1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 32);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(89, 16);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Nama Hewan";
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(279, 98);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(99, 152);
+            this.flowLayoutPanel1.TabIndex = 11;
             // 
-            // label4
+            // table_category
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 66);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(52, 16);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Gender";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 96);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(39, 16);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Umur";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 130);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(56, 16);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "Gambar";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(15, 162);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(57, 16);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "Kategori";
-            // 
-            // CB_gender
-            // 
-            this.CB_gender.FormattingEnabled = true;
-            this.CB_gender.Items.AddRange(new object[] {
-            "Jantan",
-            "Betina"});
-            this.CB_gender.Location = new System.Drawing.Point(103, 62);
-            this.CB_gender.Name = "CB_gender";
-            this.CB_gender.Size = new System.Drawing.Size(152, 24);
-            this.CB_gender.TabIndex = 12;
-            this.CB_gender.SelectedIndexChanged += new System.EventHandler(this.CB_gender_SelectedIndexChanged);
+            this.table_category.ColumnCount = 2;
+            this.table_category.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.table_category.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.table_category.Location = new System.Drawing.Point(680, 152);
+            this.table_category.Name = "table_category";
+            this.table_category.RowCount = 2;
+            this.table_category.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.table_category.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.table_category.Size = new System.Drawing.Size(194, 152);
+            this.table_category.TabIndex = 11;
+            this.table_category.Paint += new System.Windows.Forms.PaintEventHandler(this.table_category_Paint);
             // 
             // FormHewan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.ClientSize = new System.Drawing.Size(821, 360);
+            this.ClientSize = new System.Drawing.Size(888, 360);
+            this.Controls.Add(this.table_category);
             this.Controls.Add(this.btn_save_category);
             this.Controls.Add(this.category_name);
             this.Controls.Add(this.label2);
@@ -266,5 +290,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel table_category;
     }
 }

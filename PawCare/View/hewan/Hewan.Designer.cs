@@ -28,25 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_export = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
-            // button1
+            // btn_export
             // 
-            this.button1.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.Snow;
-            this.button1.Location = new System.Drawing.Point(688, 50);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(72, 26);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Export +";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btn_export.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.btn_export.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btn_export.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_export.ForeColor = System.Drawing.Color.Snow;
+            this.btn_export.Location = new System.Drawing.Point(688, 50);
+            this.btn_export.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_export.Name = "btn_export";
+            this.btn_export.Size = new System.Drawing.Size(72, 26);
+            this.btn_export.TabIndex = 0;
+            this.btn_export.Text = "Export +";
+            this.btn_export.UseVisualStyleBackColor = false;
+        
+            // To this
+            this.btn_export.Click += new System.EventHandler(this.btn_export_Click);
+
             // 
             // button2
             // 
@@ -67,7 +70,7 @@
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(22, 97);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(844, 292);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(844, 498);
             this.flowLayoutPanel1.TabIndex = 3;
             this.flowLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel1_Paint);
             // 
@@ -75,10 +78,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(878, 480);
+            this.ClientSize = new System.Drawing.Size(878, 654);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_export);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Hewan";
             this.Text = "Hewan";
@@ -88,7 +91,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_export;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }

@@ -11,8 +11,11 @@ using System.Windows.Forms;
 using PawCare.Controller;
 using PawCare.Model;
 using PawCare.View.hewan;
-
+using OfficeOpenXml;
+using OfficeOpenXml.Drawing;
 using MySql.Data.MySqlClient;
+
+using LicenseContext = OfficeOpenXml.LicenseContext; // Add this line to resolve ambiguity
 
 
 namespace PawCare.View
@@ -41,7 +44,10 @@ namespace PawCare.View
         {
             InitializeComponent();
             LoadImage();
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // Use the correct enum here
         }
+
+
 
 
         public void LoadImage()
@@ -214,6 +220,90 @@ namespace PawCare.View
                 }
             }
         }
-        
+        private void btn_export_Click(object sender, EventArgs e)
+        {
+            // Get the project directory
+            string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
+            string excelFolderPath = Path.Combine(projectDirectory, "excel");
+
+            // Create the 'excel' folder if it doesn't exist
+            if (!Directory.Exists(excelFolderPath))
+            {
+                Directory.CreateDirectory(excelFolderPath);
+            }
+
+            // Generate a unique filename
+            string fileName = "Animals_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".xlsx";
+            string filePath = Path.Combine(excelFolderPath, fileName);
+
+            // Get data from the database
+            C_Animal animalController = new C_Animal();
+            List<M_Animal> animals = animalController.GetAnimals();
+
+            // Use EPPlus to create an Excel file
+            using (ExcelPackage package = new ExcelPackage())
+            {
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Animals");
+
+                // Add headers
+                worksheet.Cells[1, 1].Value = "Animal Name";
+                worksheet.Cells[1, 2].Value = "Gender";
+                worksheet.Cells[1, 3].Value = "Age";
+                worksheet.Cells[1, 4].Value = "Category";
+                worksheet.Cells[1, 5].Value = "Created At";
+                worksheet.Cells[1, 6].Value = "Updated At";
+                worksheet.Cells[1, 7].Value = "Image";
+
+                int row = 2;
+                foreach (M_Animal animal in animals)
+                {
+                    worksheet.Cells[row, 1].Value = animal.Animal_name;
+                    worksheet.Cells[row, 2].Value = animal.Gender;
+                    worksheet.Cells[row, 3].Value = animal.Age;
+                    worksheet.Cells[row, 4].Value = animal.Category_name;
+                    worksheet.Cells[row, 5].Value = animal.Created_at;
+                    worksheet.Cells[row, 6].Value = animal.Updated_at;
+
+                    // Set date format for Created At and Updated At columns
+                    worksheet.Cells[row, 5].Style.Numberformat.Format = "dd-MM-yyyy HH:mm";
+                    worksheet.Cells[row, 6].Style.Numberformat.Format = "dd-MM-yyyy HH:mm";
+
+                    // Load the image from the file
+                    string imagePath = Path.Combine(projectDirectory, animal.Image_path);
+
+                    if (File.Exists(imagePath))
+                    {
+                        // Add image to worksheet
+                        var excelImage = worksheet.Drawings.AddPicture("Image" + row, new FileInfo(imagePath));
+
+                        // Set image position
+                        excelImage.SetPosition(row - 1, 0, 6, 0);
+                        excelImage.SetSize(75, 75);
+
+                        // Adjust the row height
+                        worksheet.Row(row).Height = 60;
+                    }
+
+                    row++;
+                }
+
+                // Auto-fit columns
+                worksheet.Cells.AutoFitColumns();
+
+                // Save the Excel file
+                try
+                {
+                    package.SaveAs(new FileInfo(filePath));
+                    MessageBox.Show($"Data exported successfully to {filePath}.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error exporting data: {ex.Message}");
+                }
+            }
+        }
+
+
+
     }
 }

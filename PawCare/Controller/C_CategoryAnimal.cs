@@ -61,5 +61,25 @@ namespace PawCare.Controller
                 conn.CloseConnection();
             }
         }
+        public void DeleteCategory(string categoryId)
+        {
+            try
+            {
+                conn.OpenConnection();
+                string query = "DELETE FROM animal_category WHERE category_id = @category_id";
+                MySqlCommand cmd = new MySqlCommand(query, conn.kon);
+                cmd.Parameters.AddWithValue("@category_id", categoryId);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error deleting category: {ex.Message}");
+            }
+            finally
+            {
+                conn.CloseConnection();
+            }
+        }
     }
 }
+
