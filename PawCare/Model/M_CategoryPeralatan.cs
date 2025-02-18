@@ -20,7 +20,7 @@ namespace PawCare.Model
             this.created_at = created_at;
             this.updated_at = updated_at;
         }
-
+        
         public string Category_id { get => category_id; set => category_id = value; }
         public string Category_name { get => category_name; set => category_name = value; }
         public DateTime Created_at { get => created_at; set => created_at = value; }

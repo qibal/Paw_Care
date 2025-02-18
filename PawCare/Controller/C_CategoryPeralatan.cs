@@ -6,69 +6,84 @@ using System.Text;
 using System.Threading.Tasks;
 using PawCare.Model;
 using MySql.Data.MySqlClient;
+using System.Data;
+using System.Windows.Forms;
 
 
 namespace PawCare.Controller
 {
     internal class C_CategoryPeralatan
     {
-        private Koneksi koneksi = new Koneksi();
+        private Koneksi conn = new Koneksi();
 
-
-        public List<M_CategoryPeralatan> GetAllCategories()
+        public DataTable GetCategories()
         {
-            List<M_CategoryPeralatan> categories = new List<M_CategoryPeralatan>();
-            koneksi.OpenConnection();
-            string query = "SELECT * FROM category_equipment";
-            MySqlDataReader reader = koneksi.Reader(query);
-            while (reader.Read())
+            DataTable dt = new DataTable();
+
+            try
             {
-                categories.Add(new M_CategoryPeralatan
-                {
-                    Category_id = reader["category_id"].ToString(),
-                    Category_name = reader["category_name"].ToString(),
-                    Created_at = Convert.ToDateTime(reader["created_at"]),
-                    Updated_at = Convert.ToDateTime(reader["updated_at"])
-                });
+                conn.OpenConnection();
+                string query = "SELECT category_id, category_name FROM category_equipment";
+                MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn.kon);
+                adapter.Fill(dt);
             }
-            koneksi.CloseConnection();
-            return categories;
-        }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error fetching equipment categories: {ex.Message}");
+            }
+            finally
+            {
+                conn.CloseConnection();
+            }
 
-        public void AddCategory(M_CategoryPeralatan category)
+            return dt;
+        }
+        public void InsertCategory(M_CategoryPeralatan category)
         {
-            koneksi.OpenConnection();
-            string query = "INSERT INTO category_equipment (category_id, category_name, created_at, updated_at) VALUES (@CategoryId, @CategoryName, @CreatedAt, @UpdatedAt)";
-            MySqlCommand cmd = new MySqlCommand(query, koneksi.kon);
-            cmd.Parameters.AddWithValue("@CategoryId", category.Category_id);
-            cmd.Parameters.AddWithValue("@CategoryName", category.Category_name);
-            cmd.Parameters.AddWithValue("@CreatedAt", category.Created_at);
-            cmd.Parameters.AddWithValue("@UpdatedAt", category.Updated_at);
-            cmd.ExecuteNonQuery();
-            koneksi.CloseConnection();
-        }
+            try
+            {
+                conn.OpenConnection();
 
-        public void UpdateCategory(M_CategoryPeralatan category)
-        {
-            koneksi.OpenConnection();
-            string query = "UPDATE category_equipment SET category_name = @CategoryName, updated_at = @UpdatedAt WHERE category_id = @CategoryId";
-            MySqlCommand cmd = new MySqlCommand(query, koneksi.kon);
-            cmd.Parameters.AddWithValue("@CategoryId", category.Category_id);
-            cmd.Parameters.AddWithValue("@CategoryName", category.Category_name);
-            cmd.Parameters.AddWithValue("@UpdatedAt", category.Updated_at);
-            cmd.ExecuteNonQuery();
-            koneksi.CloseConnection();
-        }
+                string query = "INSERT INTO category_equipment (category_id, category_name, created_at, updated_at) " +
+                               "VALUES (@category_id, @category_name, @created_at, @updated_at)";
 
+                MySqlCommand cmd = new MySqlCommand(query, conn.kon);
+                cmd.Parameters.AddWithValue("@category_id", category.Category_id);
+                cmd.Parameters.AddWithValue("@category_name", category.Category_name);
+                cmd.Parameters.AddWithValue("@created_at", category.Created_at);
+                cmd.Parameters.AddWithValue("@updated_at", category.Updated_at);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error inserting equipment category: {ex.Message}");
+            }
+            finally
+            {
+                conn.CloseConnection();
+            }
+        }
         public void DeleteCategory(string categoryId)
         {
-            koneksi.OpenConnection();
-            string query = "DELETE FROM category_equipment WHERE category_id = @CategoryId";
-            MySqlCommand cmd = new MySqlCommand(query, koneksi.kon);
-            cmd.Parameters.AddWithValue("@CategoryId", categoryId);
-            cmd.ExecuteNonQuery();
-            koneksi.CloseConnection();
+            try
+            {
+                conn.OpenConnection();
+                string query = "DELETE FROM category_equipment WHERE category_id = @category_id";
+                MySqlCommand cmd = new MySqlCommand(query, conn.kon);
+                cmd.Parameters.AddWithValue("@category_id", categoryId);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error deleting equipment category: {ex.Message}");
+            }
+            finally
+            {
+                conn.CloseConnection();
+            }
         }
+
     }
 }
 

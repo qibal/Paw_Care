@@ -42,48 +42,6 @@ namespace PawCare.Controller
             koneksi.CloseConnection();
             return equipmentList;
         }
-
-
-        public void AddEquipment(M_Peralatan equipment)
-        {
-            koneksi.OpenConnection();
-            string query = "INSERT INTO equipment (equipment_id, equipment_name, amount, image_path, category_id, created_at, updated_at) VALUES (@EquipmentId, @EquipmentName, @Amount, @ImagePath, @CategoryId, @CreatedAt, @UpdatedAt)";
-            MySqlCommand cmd = new MySqlCommand(query, koneksi.kon);
-            cmd.Parameters.AddWithValue("@EquipmentId", equipment.Equipment_id);
-            cmd.Parameters.AddWithValue("@EquipmentName", equipment.Equipment_name);
-            cmd.Parameters.AddWithValue("@Amount", equipment.Amount);
-            cmd.Parameters.AddWithValue("@ImagePath", equipment.Image_path);
-            cmd.Parameters.AddWithValue("@CategoryId", equipment.Category_id);
-            cmd.Parameters.AddWithValue("@CreatedAt", equipment.Created_at);
-            cmd.Parameters.AddWithValue("@UpdatedAt", equipment.Updated_at);
-            cmd.ExecuteNonQuery();
-            koneksi.CloseConnection();
-        }
-
-        public void UpdateEquipment(M_Peralatan equipment)
-        {
-            koneksi.OpenConnection();
-            string query = "UPDATE equipment SET equipment_name = @EquipmentName, amount = @Amount, image_path = @ImagePath, category_id = @CategoryId, updated_at = @UpdatedAt WHERE equipment_id = @EquipmentId";
-            MySqlCommand cmd = new MySqlCommand(query, koneksi.kon);
-            cmd.Parameters.AddWithValue("@EquipmentId", equipment.Equipment_id);
-            cmd.Parameters.AddWithValue("@EquipmentName", equipment.Equipment_name);
-            cmd.Parameters.AddWithValue("@Amount", equipment.Amount);
-            cmd.Parameters.AddWithValue("@ImagePath", equipment.Image_path);
-            cmd.Parameters.AddWithValue("@CategoryId", equipment.Category_id);
-            cmd.Parameters.AddWithValue("@UpdatedAt", equipment.Updated_at);
-            cmd.ExecuteNonQuery();
-            koneksi.CloseConnection();
-        }
-
-        public void DeleteEquipment(string equipmentId)
-        {
-            koneksi.OpenConnection();
-            string query = "DELETE FROM equipment WHERE equipment_id = @EquipmentId";
-            MySqlCommand cmd = new MySqlCommand(query, koneksi.kon);
-            cmd.Parameters.AddWithValue("@EquipmentId", equipmentId);
-            cmd.ExecuteNonQuery();
-            koneksi.CloseConnection();
-        }
     }
 }
 

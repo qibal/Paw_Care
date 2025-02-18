@@ -32,13 +32,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.counted_animal = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(52, 71);
+            this.label1.Location = new System.Drawing.Point(166, 172);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(83, 16);
             this.label1.TabIndex = 0;
@@ -48,7 +49,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(216, 71);
+            this.label2.Location = new System.Drawing.Point(452, 172);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(99, 16);
             this.label2.TabIndex = 1;
@@ -61,21 +62,33 @@
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // groupBox1
+            // counted_animal
             // 
-            this.groupBox1.Location = new System.Drawing.Point(55, 172);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(658, 100);
-            this.groupBox1.TabIndex = 2;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.counted_animal.AutoSize = true;
+            this.counted_animal.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.counted_animal.Location = new System.Drawing.Point(179, 210);
+            this.counted_animal.Name = "counted_animal";
+            this.counted_animal.Size = new System.Drawing.Size(39, 42);
+            this.counted_animal.TabIndex = 2;
+            this.counted_animal.Text = "0";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(474, 210);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(39, 42);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "0";
             // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(800, 609);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.counted_animal);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Home";
@@ -90,6 +103,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label counted_animal;
+        private System.Windows.Forms.Label label4;
     }
 }
