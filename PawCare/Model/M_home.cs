@@ -41,6 +41,31 @@ namespace PawCare.Model
 
             return totalAnimals;
         }
+
+        public int GetTotalEquipment()
+        {
+            int totalEquipment = 0;
+            string query = "SELECT COUNT(*) FROM equipment";
+
+            try
+            {
+                koneksi.OpenConnection();
+                MySqlCommand command = new MySqlCommand(query, koneksi.kon);
+                totalEquipment = Convert.ToInt32(command.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions (e.g., log the error)
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                koneksi.CloseConnection();
+            }
+
+            return totalEquipment;
+        }
+
         public Dictionary<string, int> GetGenderCounts()
         {
             Dictionary<string, int> genderCounts = new Dictionary<string, int>();

@@ -211,6 +211,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="View\Peralatan\FormPeralatan.resx">
+      <DependentUpon>FormPeralatan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Peralatan\Peralatan.resx">
+      <DependentUpon>Peralatan.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

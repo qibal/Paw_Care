@@ -10,8 +10,6 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using PawCare.Controller;
 
-
-
 namespace PawCare.View
 {
     public partial class Home : Form
@@ -23,18 +21,27 @@ namespace PawCare.View
             InitializeComponent();
             controller = new C_home();
             LoadTotalAnimals();
+            LoadTotalEquipment();
             LoadGenderData();
         }
+
         private void LoadTotalAnimals()
         {
             int totalAnimals = controller.GetTotalAnimals();
             counted_animal.Text = totalAnimals.ToString();
         }
 
+        private void LoadTotalEquipment()
+        {
+            int totalEquipment = controller.GetTotalEquipment();
+            counted_peralatan.Text = totalEquipment.ToString();
+        }
+
         private void label1_Click(object sender, EventArgs e)
         {
 
         }
+
         private void LoadGenderData()
         {
             Dictionary<string, int> genderCounts = controller.GetGenderCounts();
@@ -60,12 +67,18 @@ namespace PawCare.View
             genderPieChart.Titles.Clear();
             genderPieChart.Titles.Add("Total Animal By gender");
         }
+
         private void label2_Click(object sender, EventArgs e)
         {
 
         }
 
         private void genderPieChart_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void counted_animal_Click(object sender, EventArgs e)
         {
 
         }
