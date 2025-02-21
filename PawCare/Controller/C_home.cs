@@ -20,5 +20,10 @@ namespace PawCare.Controller
         {
             return model.GetTotalAnimals();
         }
+
+        public Dictionary<string, int> GetGenderCounts()
+        {
+            return model.GetGenderCounts();
+        }
     }
 }

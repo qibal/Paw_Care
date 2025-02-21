@@ -41,5 +41,37 @@ namespace PawCare.Model
 
             return totalAnimals;
         }
+        public Dictionary<string, int> GetGenderCounts()
+        {
+            Dictionary<string, int> genderCounts = new Dictionary<string, int>();
+            string query = "SELECT gender, COUNT(*) FROM animal GROUP BY gender";
+
+            try
+            {
+                koneksi.OpenConnection();
+                MySqlCommand command = new MySqlCommand(query, koneksi.kon);
+                MySqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    string gender = reader.GetString(0);
+                    int count = Convert.ToInt32(reader.GetValue(1));
+                    genderCounts.Add(gender, count);
+                }
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions (e.g., log the error)
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                koneksi.CloseConnection();
+            }
+
+            return genderCounts;
+        }
     }
 }
