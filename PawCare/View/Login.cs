@@ -7,16 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PawCare.Controller;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace PawCare.View
 {
     public partial class Login : Form
     {
+        private C_login controller;
+
         public Login()
         {
             InitializeComponent();
             this.Size = new Size(700, 400);
+            controller = new C_login();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -36,6 +40,7 @@ namespace PawCare.View
                 ValidateLogin();
             }
         }
+
         private void ValidateLogin()
         {
             if (string.IsNullOrEmpty(input_password.Text))
@@ -47,7 +52,7 @@ namespace PawCare.View
                 string pin = input_password.Text;
 
                 // Check if the pin is correct
-                if (CheckPin(pin))
+                if (controller.CheckPin(pin))
                 {
                     MessageBox.Show("Login Berhasil", "Berhasil");
 
@@ -72,16 +77,9 @@ namespace PawCare.View
             }
         }
 
-        private bool CheckPin(string pin)
-        {
-            // Replace "1234" with the actual correct pin
-            return pin == "1234";
-        }
-
-
         private void input_password_KeyDown(object sender, KeyEventArgs e)
         {
         }
-       
+
     }
 }
